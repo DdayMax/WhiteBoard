@@ -1,0 +1,14 @@
+.duel-game__wrapper {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.duel-game__menu {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+}
+
+.duel-game__canvas {
+  margin: 0;
+}
