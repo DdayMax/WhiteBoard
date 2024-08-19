@@ -8,7 +8,7 @@ interface HeroMenuProps {
   onChangeFireRate: (rate: number) => void;
 }
 
-const HeroMenu: React.FC<HeroMenuProps> = ({
+export const HeroMenu: React.FC<HeroMenuProps> = ({
   hero,
   onChangeSpellColor,
   onChangeSpeed,
@@ -67,5 +67,3 @@ const HeroMenu: React.FC<HeroMenuProps> = ({
     </div>
   );
 };
-
-export default HeroMenu;

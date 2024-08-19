@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Hero } from "../classes/Hero";
+import { Hero } from "../../classes/Hero";
 
 interface HeroComponentProps {
   hero: Hero;

@@ -1,10 +1,11 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import { Hero } from "../../classes/Hero";
-import HeroMenu from "../HeroMenu/HeroMenu";
+import { HeroMenu } from "../../ui/HeroMenu";
 import useMousePosition from "../../hooks/useMousePositions";
 import "./DuelGame.css";
+import { Scores } from "../../ui/Scores";
 
-const DuelGame: React.FC = () => {
+export const DuelGame: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [hero1] = useState(new Hero(50, 100, "#ff0000", 1));
   const [hero2] = useState(new Hero(750, 100, "#0000ff", -1));
@@ -102,11 +103,11 @@ const DuelGame: React.FC = () => {
   return (
     <div className="duel-game__wrapper">
       <div className="duel-game__menu">
-        <div style={{ marginTop: "20px" }}>
+        <Scores>
           <h3>Scores</h3>
           <p>Hero 1 (Red): {score1}</p>
           <p>Hero 2 (Blue): {score2}</p>
-        </div>
+        </Scores>
         {selectedHero && (
           <HeroMenu
             hero={selectedHero}
@@ -127,5 +128,3 @@ const DuelGame: React.FC = () => {
     </div>
   );
 };
-
-export default DuelGame;

@@ -1,6 +1,6 @@
 import React from "react";
-import DuelGame from "./components/DuelGame/DuelGame";
-import "./styles/App.css";
+import { DuelGame } from "./pages/DuelGame";
+import "./App.css";
 
 const App: React.FC = () => {
   return (
