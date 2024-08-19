@@ -25,8 +25,6 @@ export const DuelGame: React.FC = () => {
     ctx.save();
 
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-
-    // Обновляем положение героев и проверяем столкновения
     if (!isMouseMoving) {
       hero1.bounceOffCursor(mousePosition.current.x, mousePosition.current.y);
       hero2.bounceOffCursor(mousePosition.current.x, mousePosition.current.y);
@@ -78,7 +76,6 @@ export const DuelGame: React.FC = () => {
     }
   };
 
-  // Обновляем параметры выбранного героя
   const handleChangeSpellColor = (color: string) => {
     if (selectedHero) {
       selectedHero.setSpellColor(color);
@@ -95,7 +92,7 @@ export const DuelGame: React.FC = () => {
 
   const handleChangeFireRate = (rate: number) => {
     if (selectedHero) {
-      selectedHero.setFireRate(2000 - rate * 200); // Конвертируем значение от 1 до 10 в интервал от 200 до 1600
+      selectedHero.setFireRate(2000 - rate * 200);
       setSelectedHero(selectedHero);
     }
   };

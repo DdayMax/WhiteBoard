@@ -12,7 +12,7 @@ export class Spell {
     this.y = y;
     this.color = color;
     this.direction = direction;
-    this.speed = 5; // Примерное значение скорости
+    this.speed = 5;
   }
 
   update(canvasWidth: number) {
@@ -35,6 +35,6 @@ export class Spell {
     const dx = this.x - other.x;
     const dy = this.y - other.y;
     const distance = Math.sqrt(dx * dx + dy * dy);
-    return distance < 20; // Радиус для проверки столкновения
+    return distance < 20;
   }
 }

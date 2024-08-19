@@ -5,44 +5,40 @@ export class Hero {
   y: number;
   radius: number;
   speed: number;
-  direction: number; // Направление движения: 1 (вверх) или -1 (вниз)
-  color: string; // Цвет героя
-  fireDirection: number; // Направление стрельбы: 1 (вправо) или -1 (влево)
-  fireRate: number; // Интервал стрельбы в миллисекундах
-  lastFireTime: number; // Время последней стрельбы
-  spells: Spell[]; // Массив заклинаний
-  spellColor: string; // Цвет заклинания
+  direction: number;
+  color: string;
+  fireDirection: number;
+  fireRate: number;
+  lastFireTime: number;
+  spells: Spell[];
+  spellColor: string;
 
   constructor(x: number, y: number, color: string, fireDirection: number) {
     this.x = x;
     this.y = y;
     this.radius = 20;
     this.speed = 2;
-    this.direction = 1; // Двигаемся вверх
+    this.direction = 1;
     this.color = color;
-    this.fireDirection = fireDirection; // 1 для вправо, -1 для влево
-    this.fireRate = 1000; // Интервал стрельбы в миллисекундах
+    this.fireDirection = fireDirection;
+    this.fireRate = 1000;
     this.lastFireTime = Date.now();
     this.spells = [];
-    this.spellColor = color; // Цвет заклинаний по умолчанию равен цвету героя
+    this.spellColor = color;
   }
 
   update(canvasWidth: number, canvasHeight: number) {
-    // Проверка на границы карты и изменение направления движения
     if (this.y - this.radius <= 0 || this.y + this.radius >= canvasHeight) {
-      this.direction *= -1; // Меняем направление движения при достижении границ
+      this.direction *= -1;
     }
 
-    // Обновляем положение с учетом изменения направления
     this.y += this.speed * this.direction;
 
-    // Проверка на выход за границы карты и корректировка положения
     if (this.y - this.radius < 0) {
       this.y = this.radius;
     } else if (this.y + this.radius > canvasHeight) {
       this.y = canvasHeight - this.radius;
     }
-    // Обновление и удаление заклинаний
     this.spells.forEach((spell) => spell.update(canvasWidth));
     this.spells = this.spells.filter(
       (spell) => !spell.isOutOfBounds(canvasWidth)
@@ -70,7 +66,6 @@ export class Hero {
     ctx.fill();
     ctx.closePath();
 
-    // Рисуем заклинания
     this.spells.forEach((spell) => spell.draw(ctx));
   }
 
@@ -80,11 +75,10 @@ export class Hero {
     const distance = Math.sqrt(dx * dx + dy * dy);
 
     if (distance < this.radius) {
-      // Увеличение радиуса для более чувствительного реагирования
       if (cursorY < this.y) {
-        this.direction = 1; // Двигаемся вверх
+        this.direction = 1;
       } else {
-        this.direction = -1; // Двигаемся вниз
+        this.direction = -1;
       }
     }
   }
@@ -101,10 +95,6 @@ export class Hero {
     const dx = this.x - x;
     const dy = this.y - y;
     return Math.sqrt(dx * dx + dy * dy) < this.radius;
-  }
-
-  setColor(color: string) {
-    this.color = color;
   }
 
   setSpellColor(color: string) {
