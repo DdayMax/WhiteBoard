@@ -28,12 +28,20 @@ export class Hero {
   }
 
   update(canvasWidth: number, canvasHeight: number) {
-    this.y += this.speed * this.direction;
-
+    // Проверка на границы карты и изменение направления движения
     if (this.y - this.radius <= 0 || this.y + this.radius >= canvasHeight) {
       this.direction *= -1; // Меняем направление движения при достижении границ
     }
 
+    // Обновляем положение с учетом изменения направления
+    this.y += this.speed * this.direction;
+
+    // Проверка на выход за границы карты и корректировка положения
+    if (this.y - this.radius < 0) {
+      this.y = this.radius;
+    } else if (this.y + this.radius > canvasHeight) {
+      this.y = canvasHeight - this.radius;
+    }
     // Обновление и удаление заклинаний
     this.spells.forEach((spell) => spell.update(canvasWidth));
     this.spells = this.spells.filter(
