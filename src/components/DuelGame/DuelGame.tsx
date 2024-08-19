@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
-import { Hero } from "../classes/Hero";
-import HeroMenu from "./HeroMenu";
-import useMousePosition from "../hooks/useMousePositions";
+import { Hero } from "../../classes/Hero";
+import HeroMenu from "../HeroMenu/HeroMenu";
+import useMousePosition from "../../hooks/useMousePositions";
 import "./DuelGame.css";
 
 const DuelGame: React.FC = () => {
