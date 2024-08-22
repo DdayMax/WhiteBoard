@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Hero } from "../../classes/Hero";
-import "./HeroMenu.css";
 
 interface HeroMenuProps {
   hero: Hero;
@@ -8,72 +7,62 @@ interface HeroMenuProps {
   onChangeSpeed: (speed: number) => void;
   onChangeFireRate: (rate: number) => void;
 }
-
 export const HeroMenu: React.FC<HeroMenuProps> = ({
   hero,
   onChangeSpellColor,
   onChangeSpeed,
   onChangeFireRate,
 }) => {
-  const [spellColor, setSpellColor] = useState(hero.spellColor);
-  const [speed, setSpeed] = useState(hero.speed);
-  const [fireRate, setFireRate] = useState(
-    Math.max(1, Math.min(10, Math.round(10 - hero.fireRate / 160)))
-  );
-
-  useEffect(() => {
-    setSpellColor(hero.spellColor);
-    setSpeed(hero.speed);
-    setFireRate(
-      Math.max(1, Math.min(10, Math.round(10 - hero.fireRate / 160)))
-    );
-  }, [hero]);
+  // const [rate, setRate] = useState(hero.fireRate);
   const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const color = event.target.value;
-    setSpellColor(color);
-    onChangeSpellColor(color);
+    onChangeSpellColor(event.target.value);
   };
 
   const handleSpeedChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newSpeed = Number(event.target.value);
-    setSpeed(newSpeed);
-    onChangeSpeed(newSpeed);
+    onChangeSpeed(Number(event.target.value));
   };
 
   const handleFireRateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newFireRate = Number(event.target.value);
-    setFireRate(newFireRate);
-    onChangeFireRate(2000 - newFireRate * 160);
+    onChangeFireRate(Number(event.target.value));
   };
 
   return (
-    <div className="hero-menu">
+    <div>
       <h2>Hero Settings</h2>
       <label>
         Spell Color:
-        <input type="color" value={spellColor} onChange={handleColorChange} />
+        <input
+          type="color"
+          value={hero.spellColor}
+          onChange={handleColorChange}
+        />
       </label>
+      <br />
       <label>
         Speed:
         <input
           type="range"
           min="1"
           max="10"
-          value={speed}
+          value={hero.speed}
           onInput={handleSpeedChange}
         />
-        <span>{speed}</span>
+        <span>{hero.speed}</span>
       </label>
+      <br />
       <label>
         Fire Rate:
         <input
           type="range"
           min="1"
           max="10"
-          value={fireRate}
-          onInput={handleFireRateChange}
+          value={Math.max(
+            1,
+            Math.min(10, Math.round(10 - hero.fireRate / 160))
+          )}
+          onChange={handleFireRateChange}
         />
-        <span>{2000 - fireRate * 160}</span>
+        <span>{hero.fireRate}</span>
       </label>
     </div>
   );
