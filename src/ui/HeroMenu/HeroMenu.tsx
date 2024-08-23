@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Hero } from "../../classes/Hero";
+import "./HeroMenu.css";
 
 interface HeroMenuProps {
   hero: Hero;
@@ -13,21 +14,30 @@ export const HeroMenu: React.FC<HeroMenuProps> = ({
   onChangeSpeed,
   onChangeFireRate,
 }) => {
-  // const [rate, setRate] = useState(hero.fireRate);
+  const [fireRate, setFireRate] = useState(
+    Math.max(1, Math.min(10, Math.floor(10 - hero.fireRate / 200)))
+  );
+
+  const [speed, setSpeed] = useState(hero.speed);
+
   const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChangeSpellColor(event.target.value);
   };
 
   const handleSpeedChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChangeSpeed(Number(event.target.value));
+    setSpeed(Number(event.target.value));
   };
 
   const handleFireRateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChangeFireRate(Number(event.target.value));
+    setFireRate(
+      Math.max(1, Math.min(10, Math.floor(10 - hero.fireRate / 200)))
+    );
   };
 
   return (
-    <div>
+    <div className="hero-menu">
       <h2>Hero Settings</h2>
       <label>
         Spell Color:
@@ -44,10 +54,10 @@ export const HeroMenu: React.FC<HeroMenuProps> = ({
           type="range"
           min="1"
           max="10"
-          value={hero.speed}
+          value={speed}
           onInput={handleSpeedChange}
         />
-        <span>{hero.speed}</span>
+        <span>{speed}</span>
       </label>
       <br />
       <label>
@@ -56,13 +66,10 @@ export const HeroMenu: React.FC<HeroMenuProps> = ({
           type="range"
           min="1"
           max="10"
-          value={Math.max(
-            1,
-            Math.min(10, Math.round(10 - hero.fireRate / 160))
-          )}
+          value={fireRate}
           onChange={handleFireRateChange}
         />
-        <span>{hero.fireRate}</span>
+        <span>{fireRate}</span>
       </label>
     </div>
   );

@@ -17,7 +17,7 @@ export class Hero {
     this.x = x;
     this.y = y;
     this.radius = 20;
-    this.speed = 2;
+    this.speed = 5;
     this.direction = 1;
     this.color = color;
     this.fireDirection = fireDirection;
@@ -32,7 +32,7 @@ export class Hero {
       this.direction *= -1;
     }
 
-    this.y += this.speed * this.direction;
+    this.y += ((this.speed * 2) / 5) * this.direction;
 
     if (this.y - this.radius < 0) {
       this.y = this.radius;
