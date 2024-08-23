@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Hero } from "../../classes/Hero";
 import "./HeroMenu.css";
 
@@ -14,9 +14,10 @@ export const HeroMenu: React.FC<HeroMenuProps> = ({
   onChangeSpeed,
   onChangeFireRate,
 }) => {
-  const [fireRate, setFireRate] = useState(
-    Math.max(1, Math.min(10, Math.floor(10 - hero.fireRate / 200)))
-  );
+  const calculateFireRate = (fireRate: number) =>
+    Math.max(1, Math.min(10, Math.floor(10 - fireRate / 200)));
+
+  const [fireRate, setFireRate] = useState(calculateFireRate(hero.fireRate));
 
   const [speed, setSpeed] = useState(hero.speed);
 
@@ -31,10 +32,13 @@ export const HeroMenu: React.FC<HeroMenuProps> = ({
 
   const handleFireRateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChangeFireRate(Number(event.target.value));
-    setFireRate(
-      Math.max(1, Math.min(10, Math.floor(10 - hero.fireRate / 200)))
-    );
+    setFireRate(calculateFireRate(hero.fireRate));
   };
+
+  useEffect(() => {
+    setFireRate(calculateFireRate(hero.fireRate));
+    setSpeed(hero.speed);
+  }, [hero]);
 
   return (
     <div className="hero-menu">
